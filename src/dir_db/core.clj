@@ -33,12 +33,19 @@
   [file]
   (try (slurp file) (catch Exception e)))
 
-(defn save-blog
+(defn save-db
   "saves blog posts"
   [{:keys [uuid edn meta]}]
   (let [db-path (str/join "/" ["resources/db" (or uuid (uuid/v1))])
         edn-uuid (save-edn edn)
-        post-data (or (edn/read-string (slurp-nil db-path))
-                      blank-post)]
+        db-data (or (edn/read-string (slurp-nil db-path))
+                    blank-post)]
     (io/make-parents db-path)
-    (spit db-path (conj-in post-data [:history] edn-uuid))))
+    (spit db-path (conj-in db-data [:history] edn-uuid))))
+
+(defn db-entries
+  "returns list of db entries"
+  []
+  (drop 1
+        (map #(.getName %)
+             (file-seq (io/file "resources/db/")))))
