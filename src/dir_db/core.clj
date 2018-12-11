@@ -24,6 +24,12 @@
         new-value (concat depth values)]
     (assoc-in col keys new-value)))
 
+(defn merge-in
+  [col keys & values]
+  (let [depth (get-in col keys)
+        merged-vals (apply merge values)]
+    (assoc-in col keys (merge depth merged-vals))))
+
 (def blank-post
   {:meta    {}
    :history []})
@@ -41,7 +47,12 @@
         db-data (or (edn/read-string (slurp-nil db-path))
                     blank-post)]
     (io/make-parents db-path)
-    (spit db-path (conj-in db-data [:history] edn-uuid))))
+    (spit db-path
+          (conj-in (merge-in db-data
+                             [:meta]
+                             meta)
+                   [:history]
+                   edn-uuid))))
 
 (defn db-entries
   "returns list of db entries"
@@ -49,8 +60,17 @@
   (map #(edn/read-string (slurp %))
        (drop 1 (file-seq (io/file "resources/db/")))))
 
+(defn- pull-uuid-edn
+  [uuid]
+  (edn/read-string (slurp (io/file (str "resources/edn/" uuid)))))
+
 (defn get-latest
   "returns latest data of db entry gives edn for now"
   [db]
   (let [uuid (last (:history db))]
-    (edn/read-string (slurp (io/file (str "resources/edn/" uuid))))))
+    (pull-uuid-edn uuid)))
+
+(defn get-all-history
+  "gets all versions of db entries"
+  [db]
+  (map #(pull-uuid-edn %) (:history db)))
