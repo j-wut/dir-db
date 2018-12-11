@@ -25,7 +25,7 @@
     (assoc-in col keys new-value)))
 
 (def blank-post
-  {:meta {}
+  {:meta    {}
    :history []})
 
 (defn slurp-nil
@@ -46,6 +46,11 @@
 (defn db-entries
   "returns list of db entries"
   []
-  (drop 1
-        (map #(.getName %)
-             (file-seq (io/file "resources/db/")))))
+  (map #(edn/read-string (slurp %))
+       (drop 1 (file-seq (io/file "resources/db/")))))
+
+(defn get-latest
+  "returns latest data of db entry gives edn for now"
+  [db]
+  (let [uuid (last (:history db))]
+    (edn/read-string (slurp (io/file (str "resources/edn/" uuid))))))
