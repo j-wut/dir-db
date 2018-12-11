@@ -1,10 +1,16 @@
 # dir-db
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to create a file database.
+Stores EDN files, and keeps track of all history for database entries.
+
+##Installation
+###Lein
+`[dir-db "0.1.0-SNAPSHOT"]`
 
 ## Usage
 
-FIXME
+(require [dir-db/core :as ddb])
+
 
 ## License
 
