@@ -13,15 +13,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Leiningen: cc.qbits/tardis:1.1.1" level="project" />
     <orderEntry type="library" name="Leiningen: clj-time:0.15.0" level="project" />
     <orderEntry type="library" name="Leiningen: clojure-complete:0.2.4" level="project" />
-    <orderEntry type="library" name="Leiningen: com.github.stephenc.eaio-grabbag/grabbag:1.8.1" level="project" />
-    <orderEntry type="library" name="Leiningen: com.github.stephenc.eaio-uuid/uuid:3.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: danlentz/clj-uuid:0.1.7" level="project" />
     <orderEntry type="library" name="Leiningen: joda-time:2.10" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.9.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.specs.alpha:0.1.24" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/spec.alpha:0.1.143" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.nrepl:0.2.12" level="project" />
+    <orderEntry type="library" name="Leiningen: primitive-math:0.1.4" level="project" />
   </component>
 </module>
